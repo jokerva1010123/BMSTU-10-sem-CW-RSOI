@@ -1,0 +1,24 @@
+apiVersion: v2
+name: services-chart
+type: application
+version: 1.0.0
+dependencies:
+  - name: service-chart
+    version: 1.0.0
+    alias: testus-notes
+
+  - name: service-chart
+    version: 1.0.0
+    alias: testus-tasks
+
+  - name: service-chart
+    version: 1.0.0
+    alias: testus-users
+
+  - name: service-chart
+    version: 1.0.0
+    alias: testus-costs
+
+  - name: service-chart
+    version: 1.0.0
+    alias: testus-gateway

@@ -1,0 +1,112 @@
+version: "3.3"
+
+services:
+  frontend:
+    hostname: frontend
+    ports:
+      - "8887:8887"
+    image: ktlh/frontend:latest
+  rabbit:
+    restart: on-failure
+    image: rabbitmq
+    hostname: rabbit
+    ports:
+      - "5672:5672"
+  auth:
+    expose:
+      - "8010"
+    ports:
+      - "8010:8010"
+    image: ktlh/auth:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 30s
+  airport:
+    restart: on-failure
+    expose:
+      - "8020"
+    ports:
+      - "8020:8020"
+    image: ktlh/airport:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 30s
+  bonus:
+    expose:
+      - "8050"
+    ports:
+      - "8050:8050"
+    image: ktlh/bonus:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 30s
+  flight:
+    expose:
+      - "8030"
+    ports:
+      - "8030:8030"
+    image: ktlh/flight:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 30s
+  gateway:
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    image: ktlh/gateway:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 30s
+  reports:
+    expose:
+      - "8060"
+    ports:
+      - "8060:8060"
+    image: ktlh/reports:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 30s
+  tickets:
+    expose:
+      - "8040"
+    ports:
+      - "8040:8040"
+    image: ktlh/tickets:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 30s
+
+
+
+
+
+

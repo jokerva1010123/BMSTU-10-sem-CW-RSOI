@@ -1,0 +1,21 @@
+CREATE TABLE public.flight
+(
+    "From" uuid NOT NULL,
+	"From_city" text NOT NULL,
+    "To" uuid NOT NULL,
+	"To_city" text NOT NULL,
+    "Date" date,
+    "FlightID" uuid NOT NULL,
+    CONSTRAINT flight_pkey PRIMARY KEY ("FlightID")
+)
+
+INSERT INTO public.flight(
+	"From", "To", "Date", "FlightID")
+	VALUES (?, ?, ?, ?);
+
+SELECT "From", "From_city", "To", "To_city", "Date", "FlightID"
+	FROM public.flight;
+
+UPDATE public.flight
+	SET "From"=?, "To"=?, "Date"=?, "FlightID"=?
+	WHERE <condition>;

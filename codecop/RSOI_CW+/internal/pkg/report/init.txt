@@ -1,0 +1,10 @@
+CREATE TABLE public.reports
+(
+    "ID" bigint NOT NULL DEFAULT nextval('"reports_ID_seq"'::regclass),
+    "UserUUID" uuid NOT NULL,
+    "FlightUUID" uuid NOT NULL,
+    "TicketUUID" uuid NOT NULL,
+    CONSTRAINT reports_pkey PRIMARY KEY ("ID")
+)
+
+

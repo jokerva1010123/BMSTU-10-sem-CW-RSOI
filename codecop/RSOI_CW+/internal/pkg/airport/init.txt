@@ -1,0 +1,15 @@
+CREATE TABLE public.airport
+(
+    "AirportUUID" uuid NOT NULL,
+    "AirportName" text COLLATE pg_catalog."default",
+    "City" text,
+    "Description" text,
+    CONSTRAINT airport_pkey PRIMARY KEY ("AirportUUID")
+)
+
+INSERT INTO public.airport
+("AirportUUID", "AirportName", "City", "Description")
+VALUES(?, '', '', '');
+
+SELECT "AirportUUID", "AirportName", "City", "Description"
+FROM public.airport;

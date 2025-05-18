@@ -1,0 +1,9 @@
+CREATE TABLE public.ticket
+(
+    "TicketUUID" uuid NOT NULL,
+    "FlightUUID" uuid NOT NULL,
+    "UserUUID" uuid NOT NULL,
+    "Date" date,
+    CONSTRAINT ticket_pkey PRIMARY KEY ("TicketUUID")
+)
+

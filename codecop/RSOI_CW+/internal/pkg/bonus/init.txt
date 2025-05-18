@@ -1,0 +1,17 @@
+CREATE TABLE public.bonus
+(
+    "UserUUID" uuid NOT NULL,
+    "Balance" integer NOT NULL,
+    CONSTRAINT bonus_pkey PRIMARY KEY ("UserUUID")
+)
+
+SELECT "UserUUID", "Balance"
+	FROM public.bonus;
+
+INSERT INTO public.bonus(
+	"UserUUID", "Balance")
+	VALUES (?, ?);
+
+UPDATE public.bonus
+	SET "Balance"=?
+	WHERE "UserUUID"=?;

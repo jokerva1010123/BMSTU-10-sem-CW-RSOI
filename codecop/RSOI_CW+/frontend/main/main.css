@@ -1,0 +1,198 @@
+#navbar {
+    overflow: hidden;
+    background-color: #7c525f;
+}
+
+#navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+#navbar a:hover {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px;
+    text-decoration-line: underline;
+}
+
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding-top: 60px;
+}
+
+form {
+    padding: 20px;
+    margin: 30px;
+    border-radius: 4%;
+    justify-content: center;
+}
+
+.ticket-item {
+    border-radius: 4%;
+    background: #ccb7b7;
+    box-shadow:  6px 6px 11px #a59ea8,
+    -6px -6px 11px #cbb5bd;
+    margin-top: 20px;
+    margin-left:20px;
+    margin-right: 20px;
+    padding: 20px;
+}
+
+body {
+    background: #e0e0e0;
+}
+
+.airport-items {
+    display: inline-block;
+    min-width: 300px;
+    max-width: 45%;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow:  8px 8px 5px #bebebe,
+    -8px -8px 5px #ffffff;
+    margin-top: 20px;
+    margin-left:20px;
+    margin-right: 20px;
+    padding: 30px;
+}
+
+.airport-items:hover {
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 50px;
+    background: #cec3c3;
+    box-shadow:  8px 8px 5px #bebebe,
+    -8px -8px 5px #ffffff;
+    margin-top: 20px;
+    margin-left:20px;
+    margin-right: 20px;
+    padding: 30px;
+}
+
+.airport-item {
+    display: block;
+    border-radius: 50px;
+    min-width: 300px;
+    max-width: 45%;
+    background: #e0e0e0;
+    box-shadow:  8px 8px 5px #bebebe,
+    -8px -8px 5px #ffffff;
+    margin-top: 20px;
+    margin-left:20px;
+    margin-right: 20px;
+    padding: 30px;
+}
+
+.flight-item {
+    display: block;
+    border-radius: 50px;
+    background: #e0e0e0;
+    min-width: 300px;
+    max-width: 45%;
+    box-shadow:  8px 8px 5px #bebebe,
+    -8px -8px 5px #ffffff;
+    margin-top: 20px;
+    margin-left:20px;
+    margin-right: 20px;
+    padding: 30px;
+}
+
+.user-item {
+    border-radius: 30px;
+    background: #d8caca;
+    box-shadow:  6px 6px 11px #a89e9e,
+    -6px -6px 11px #fff6f6;
+    margin-top: 20px;
+    margin-left:20px;
+    margin-right: 20px;
+    padding: 30px;
+}
+
+.btn {
+    margin-outside: 30px;
+    display: inline-block;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 27px;
+    background: linear-gradient(145deg, #7c525f, #8F5768FF);
+}
+
+.platform {
+    margin: 60px 45px 35px 45px;
+    padding: 60px 45px 35px 45px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow:  20px 20px 35px #bebebe,
+    -20px -20px 35px #ffffff;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+
+
+}
+
+.username, .password, .role {
+    display: block;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    place-content: center;
+    justify-content: center;
+}
+
+.input-fields, .user-input, .pass-input{
+    border-radius: 50px;
+    width: 100%;
+    color: #2E6788;
+}
+
+.signin-button {
+    outline: none;
+    border:none;
+    cursor: pointer;
+    min-width:100px;
+    padding: 5px;
+    font-family: 'Lato', sans-serif;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #7c525f, #8F5768FF);
+    max-height: 35px;
+    justify-content: center;
+    max-width: 300px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#hideMe {
+    display: inline-block;
+    min-width: 300px;
+    max-width: 45%;
+    border-radius: 50px;
+    background: #574d50;
+    box-shadow:  8px 8px 5px #858182,
+    -8px -8px 5px #423e3e;
+    margin-top: 20px;
+    margin-left:20px;
+    margin-right: 20px;
+    padding: 30px;
+
+    -webkit-animation: cssAnimation 5s forwards;
+    animation: cssAnimation 5s forwards;
+}
+@keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+@-webkit-keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}

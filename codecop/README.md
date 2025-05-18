@@ -1,1 +1,0 @@
-# BMSTU-10-sem-RSOI-CW

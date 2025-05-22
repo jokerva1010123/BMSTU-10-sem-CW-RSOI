@@ -1,0 +1,241 @@
+version: '3.1'
+
+services:
+  bonus_database:
+    image: postgres:16-alpine
+    container_name: bonus_database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=bonus_db
+    volumes:
+      - ./pg_data_bonus:/var/lib/postgresql/data
+      - ./bonus_service/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 20s
+      timeout: 15s
+      retries: 10
+
+  flight_database:
+    image: postgres:16-alpine
+    container_name: flight_database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=flight_db
+    volumes:
+      - ./pg_data_flight:/var/lib/postgresql/data
+      - ./flight_service/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 20s
+      timeout: 15s
+      retries: 10
+
+  ticket_database:
+    image: postgres:16-alpine
+    container_name: ticket_database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ticket_db
+    volumes:
+      - ./pg_data_ticket:/var/lib/postgresql/data
+      - ./ticket_service/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 20s
+      timeout: 15s
+      retries: 10
+
+  auth_database:
+    image: postgres:16-alpine
+    container_name: auth_database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=auth_db
+    volumes:
+      - ./pg_data_auth:/var/lib/postgresql/data
+      - ./auth_service/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 20s
+      timeout: 15s
+      retries: 10
+
+  statistics_database:
+    image: postgres:16-alpine
+    container_name: statistics_database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=statistics_db
+    volumes:
+      - ./pg_data_statistics:/var/lib/postgresql/data
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 20s
+      timeout: 15s
+      retries: 10
+
+  bonus_service:
+    image: bonus_service
+    container_name: bonus_service
+    build:
+      context: "."
+      dockerfile: ./docker/bonus.Dockerfile
+    ports:
+      - "8050:8050"
+    networks:
+      - default
+    depends_on:
+      bonus_database:
+        condition: service_healthy
+
+  flight_service:
+    image: flight_service
+    container_name: flight_service
+    build:
+      context: "."
+      dockerfile: ./docker/flight.Dockerfile
+    ports:
+      - "8060:8060"
+    networks:
+      - default
+    depends_on:
+      flight_database:
+        condition: service_healthy
+
+  ticket_service:
+    image: ticket_service
+    container_name: ticket_service
+    build:
+      context: "."
+      dockerfile: ./docker/ticket.Dockerfile
+    ports:
+      - "8070:8070"
+    networks:
+      - default
+    depends_on:
+      ticket_database:
+        condition: service_healthy
+
+  auth_service:
+    image: auth_service
+    container_name: auth_service
+    build:
+      context: "."
+      dockerfile: ./docker/auth.Dockerfile
+    ports:
+      - "8888:8888"
+    networks:
+      - default
+    depends_on:
+      auth_database:
+        condition: service_healthy
+
+  gateway_service:
+    image: gateway_service
+    container_name: gateway_service
+    build:
+      context: "."
+      dockerfile: ./docker/gateway.Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - default
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    restart: "no"
+    links:
+      - zookeeper
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: INTERNAL://:29092,EXTERNAL://:9092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+    healthcheck:
+      test: ["CMD-SHELL", "ls"]
+      interval: 2s
+      timeout: 2s
+      retries: 5
+
+  statistics_service:
+    image: statistics_service
+    container_name: statistics_service
+    build:
+      context: "."
+      dockerfile: ./docker/statistics.Dockerfile
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+    ports:
+      - "8090:8090"
+    networks:
+      - default
+    depends_on:
+      statistics_database:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  consumer_service:
+    image: consumer_service
+    container_name: consumer_service
+    build:
+      context: "."
+      dockerfile: ./docker/consumer.Dockerfile
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - KAFKA_GROUP_ID=my-group
+    networks:
+      - default
+    depends_on:
+      statistics_database:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+volumes:
+  pg_data_bonus:
+    driver: local
+  pg_data_flight:
+    driver: local
+  pg_data_ticket:
+    driver: local
+  pg_data_auth:
+    driver: local
+  pg_data_statistics:
+    driver: local
+
+networks:
+  default:

@@ -1,0 +1,67 @@
+name: GitHub Deploy YandexCloud
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Copy code
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "backend,frontend"
+          target: /home/${{ secrets.SSH_USERNAME }}/dips
+
+      - name: Run backend
+        uses: appleboy/ssh-action@v1.0.0
+        env:
+          WAIT_PORTS: 8080,8070,8060,8050,8090,8888
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /home/${{ secrets.SSH_USERNAME }}/dips/backend
+            sudo docker compose down
+            sudo docker rmi gateway_service
+            sudo docker rmi bonus_service
+            sudo docker rmi flight_service
+            sudo docker rmi ticket_service
+            sudo docker rmi auth_service
+            sudo docker rmi statistics_service
+            sudo docker rmi consumer_service
+            sudo mkdir auth_service/app/certs
+            sudo docker compose up -d
+        
+      - name: Run frontend
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /home/${{ secrets.SSH_USERNAME }}/dips/frontend
+            sudo docker compose down
+            sudo docker rmi dips-client
+            sudo docker compose up -d

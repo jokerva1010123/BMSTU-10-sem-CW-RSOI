@@ -1,0 +1,15 @@
+venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.vscode/
+.DS_Store
+keys/
+
+pg_data_flight/
+pg_data_ticket/
+pg_data_bonus/
+pg_data_auth/
+pg_data_statistics/
+
+node_modules/

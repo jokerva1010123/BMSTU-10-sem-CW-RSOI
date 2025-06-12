@@ -1,0 +1,41 @@
+docker context use default
+
+minikube start --vm-driver=hyperv
+
+minikube status
+
+minikube dashboard (новое окно)
+
+cd /Users/natalia/Desktop/rsoi-course-work/kubernetes
+
+kubectl apply -f postgres.yaml
+
+kubectl apply -f deployment.yaml
+
+kubectl port-forward service/gateway-service 8080:80
+
+cd /Users/natalia/Desktop/rsoi-course-work/kubernetes/kafka
+
+kubectl apply -f 00-namespace.yaml
+
+kubectl apply -f 01-zookeeper.yaml
+
+поменять хост
+
+kubectl apply -f 02-kafka.yaml
+
+kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka' -n kafka
+
+kubectl apply -f kafka-cluster.yaml
+
+cd /Users/natalia/Desktop/rsoi-course-work/kubernetes/kafka/kafdrop
+
+helm repo add main https://bedag.github.io/helm-charts/
+
+helm install kafdrop main/kafdrop --version 0.2.3
+
+helm upgrade -i kafdrop main/kafdrop --set image.tag=3.31.0     --set kafka.brokerConnect="kafka-broker:9092"     --set server.servlet.contextPath="/"     --set jvm.opts="-Xms32M -Xmx64M"
+
+kubectl port-forward service/kafdrop 9000:9000
+
+minikube stop -all

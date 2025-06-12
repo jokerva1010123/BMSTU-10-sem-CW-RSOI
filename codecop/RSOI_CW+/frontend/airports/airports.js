@@ -1,7 +1,7 @@
 async function ShowAllAirports() {
 
     navigate('/airports');
-    const url = 'http://3.67.182.34:8020/api/v1/airports';
+    const url = 'http://localhost:8020/api/v1/airports';
 
     let response = await fetch(url, {
         method: 'GET',
@@ -39,7 +39,7 @@ async function ShowAllAirports() {
 async function ShowAirport(id) {
 
     navigate('/airports');
-    const url = 'http://3.67.182.34:8020/api/v1/airports/' + id;
+    const url = 'http://localhost:8020/api/v1/airports/' + id;
 
     let response = await fetch(url, {
         method: 'GET',

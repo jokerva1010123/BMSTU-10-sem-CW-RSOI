@@ -1,0 +1,12 @@
+language: csharp  
+solution: booking.sln
+mono: none
+dotnet: 2.1.300
+install:
+  - dotnet restore
+script:
+  - dotnet publish ./booking/booking.csproj
+  - dotnet publish ./booking.client/booking.client.csproj
+  - dotnet publish ./booking.order/booking.order.csproj
+  - dotnet publish ./booking.flight/booking.flight.csproj
+  - dotnet test ./TestProject/TestProject.csproj

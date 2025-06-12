@@ -12,6 +12,7 @@ async function login() {
          'Access-Control-Allow-Origin': defaultOrigin,
       },
    });
+   console.log(response.ok);
    if (response.ok) {
       let body = await response.json();
       localStorage.setItem('token', body.Token);

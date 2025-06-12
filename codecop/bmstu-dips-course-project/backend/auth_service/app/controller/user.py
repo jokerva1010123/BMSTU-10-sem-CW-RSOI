@@ -206,7 +206,7 @@ async def get_user_by_uuid(
     status_code=status.HTTP_201_CREATED,
     response_class=Response,
     responses={
-        status.HTTP_201_CREATED: ApiResponses.create(DomainEnum.USER),
+        status.HTTP_201_CREATED: ApiResponses.create(DomainEnum.ADMIN),
         status.HTTP_401_UNAUTHORIZED: ApiResponses.not_authorized(
             DomainEnum.USER,
         ),

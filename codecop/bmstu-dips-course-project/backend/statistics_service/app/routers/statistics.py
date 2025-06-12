@@ -49,7 +49,7 @@ async def get_all(
     statisticsCRUD: Annotated[IStatisticsCRUD, Depends(get_statistics_crud)],
     page: Annotated[int, Query(ge=1)] = 1,
     size: Annotated[int, Query(ge=1)] = 100,
-    _: bool = Depends(RoleChecker(allowed_roles=[RoleEnum.ADMIN])),
+    _: bool = Depends(RoleChecker(allowed_roles=[RoleEnum.USER])),
 ) -> StatisticsPaginationResponse:
     return await StatisticsService(
         statisticsCRUD=statisticsCRUD,

@@ -13,7 +13,6 @@ services:
       dockerfile: ./build/frontend.Dockerfile
     ports:
       - "8887:8887"
-    image: ktlh/frontend
   rabbit:
     restart: on-failure
     image: rabbitmq
@@ -32,7 +31,6 @@ services:
       - "8010"
     ports:
       - "8010:8010"
-    image: ktlh/auth
     deploy:
       mode: replicated
       replicas: 1
@@ -53,7 +51,6 @@ services:
       - "8020"
     ports:
       - "8020:8020"
-    image: ktlh/airport
     deploy:
       mode: replicated
       replicas: 1
@@ -73,7 +70,6 @@ services:
       - "8050"
     ports:
       - "8050:8050"
-    image: ktlh/bonus
     deploy:
       mode: replicated
       replicas: 1
@@ -93,7 +89,6 @@ services:
       - "8030"
     ports:
       - "8030:8030"
-    image: ktlh/flight
     deploy:
       mode: replicated
       replicas: 1
@@ -113,7 +108,6 @@ services:
       - "8000"
     ports:
       - "8000:8000"
-    image: ktlh/gateway
     deploy:
       mode: replicated
       replicas: 1
@@ -133,7 +127,6 @@ services:
       - "8060"
     ports:
       - "8060:8060"
-    image: ktlh/reports
     deploy:
       mode: replicated
       replicas: 1
@@ -153,7 +146,6 @@ services:
       - "8040"
     ports:
       - "8040:8040"
-    image: ktlh/tickets
     deploy:
       mode: replicated
       replicas: 1

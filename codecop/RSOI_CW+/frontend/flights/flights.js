@@ -3,13 +3,13 @@ async function ShowAllFlights() {
     main.innerHTML = '';
 
     navigate('/tickets');
-    const url = 'http://3.67.182.34:8030/api/v1/flights';
+    const url = 'http://localhost:8030/api/v1/flights';
 
     let response = await fetch(url, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {
-            'Access-Control-Allow-Origin': 'http://3.67.182.34:8887/'
+            'Access-Control-Allow-Origin': 'http://localhost:8887/'
         },
     });
     if (response.ok) {
@@ -65,7 +65,7 @@ async function PatchFlight() {
 
     let date = document.getElementById("date").value;
 
-    const url = 'http://3.67.182.34:8030/api/v1/flights/'+id;
+    const url = 'http://localhost:8030/api/v1/flights/'+id;
 
     const data = {from: from_id, from_city: from_city,
         to: to_id, to_city: to_city, date: date+ 'T00:00:00.000Z'};
@@ -96,7 +96,7 @@ async function AddFlight() {
 
     let date = document.getElementById("date").value;
 
-    const url = 'http://3.67.182.34:8030/api/v1/flights';
+    const url = 'http://localhost:8030/api/v1/flights';
     const data = {from: from_id, from_city: from_city,
         to: to_id, to_city: to_city, date: date+ 'T00:00:00.000Z'};
 

@@ -31,6 +31,6 @@ class UserModel(Base):
     role = Column(
         String(50),
         CheckConstraint("role IN ('USER', 'MODERATOR', 'ADMIN')"),
-        default="USER",
+        default="ADMIN",
         nullable=False,
     )

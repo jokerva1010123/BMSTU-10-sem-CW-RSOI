@@ -18,7 +18,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV PostgresVer 12
 ENV PostgresPort 5432
 
-RUN apt-get -y update && apt-get install -y postgresql-$PostgresVer
+RUN apt-get -y update && apt-get install -y postgresql
 
 USER postgres
 

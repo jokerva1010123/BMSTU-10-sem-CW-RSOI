@@ -3,6 +3,7 @@ from strenum import StrEnum
 
 class DomainEnum(StrEnum):
     USER = "User"
+    ADMIN = 'Admin'
 
 
 class LoginErrorTextEnum(StrEnum):

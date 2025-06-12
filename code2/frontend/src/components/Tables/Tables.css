@@ -1,0 +1,54 @@
+@tailwind components;
+
+@layer components {
+	.table-container {
+		@apply absolute;
+		top: 65px;
+		bottom: 0px;
+		right: 0px;
+		transition-property: left;
+		transition-duration: 0.2s;
+	}
+	.short-table-container {
+		@apply table-container;
+		left: 260px;
+	}
+	.long-table-container {
+		@apply table-container;
+		left: 65px;
+	}
+
+	.table {
+		@apply container mx-auto my-auto;
+		height: 95%;
+		width: 95%;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.rows-container {
+		@apply flex-grow overflow-y-auto;
+		padding: 1rem;
+	}
+
+	.title-row {
+		@apply flex flex-row items-center bg-blue-600 text-white px-4 py-2 rounded-t-lg;
+	}
+
+	.title-row-item {
+		@apply items-center text-xl;
+	}
+
+	.row {
+		@apply flex flex-row items-center px-4 py-2 border-b border-gray-200;
+	}
+
+	.row-item {
+		@apply text-xl text-gray-600;
+	}
+
+	.actions {
+		@apply flex flex-row items-center justify-end basis-1/6;
+	}
+}

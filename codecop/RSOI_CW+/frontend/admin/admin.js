@@ -9,7 +9,7 @@ async function CheckAdmin() {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
-            'Access-Control-Allow-Origin': 'http://3.67.182.34:8887',
+            'Access-Control-Allow-Origin': 'http://localhost:8887',
             'Authorization': `Bearer ${(token)}`
         }
     });

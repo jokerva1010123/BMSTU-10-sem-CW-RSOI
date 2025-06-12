@@ -1,6 +1,6 @@
 async function GetAll() {
     navigate('/tickets');
-    const url = 'http://3.67.182.34:8040/api/v1/tickets';
+    const url = 'http://localhost:8040/api/v1/tickets';
 
     let response = await fetch(url, {
         method: 'GET',
@@ -50,13 +50,13 @@ async function Return(id) {
     main = document.getElementById(id);
     main.childNodes[main.childElementCount - 1].disabled = true;
 
-    const url = 'http://3.67.182.34:8040/api/v1/tickets/' + id.toString();
+    const url = 'http://localhost:8040/api/v1/tickets/' + id.toString();
     let response = await fetch(url, {
         method: 'DELETE',
         credentials: 'include',
         headers: {
             'Authorization': `Bearer ${user}`,
-            'Access-Control-Allow-Origin': 'http://3.67.182.34:8887'
+            'Access-Control-Allow-Origin': 'http://localhost:8887'
         },
     });
     if (response.ok) {
@@ -67,7 +67,7 @@ async function Return(id) {
 }
 
 async function GetMyTickets(id) {
-    const url = 'http://3.67.182.34:8040/api/v1/tickets';
+    const url = 'http://localhost:8040/api/v1/tickets';
 
     user  = localStorage.getItem("token");
 
@@ -76,7 +76,7 @@ async function GetMyTickets(id) {
         credentials: 'include',
         headers: {
             'Authorization': `Bearer ${user}`,
-            'Access-Control-Allow-Origin': 'http://3.67.182.34:8887'
+            'Access-Control-Allow-Origin': 'http://localhost:8887'
         },
     });
     if (response.ok) {
@@ -126,7 +126,7 @@ async function GetMyTickets(id) {
 }
 
 async function ShowBuyBlock(id, date) {
-    const url = 'http://3.67.182.34:8040/api/v1/tickets';
+    const url = 'http://localhost:8040/api/v1/tickets';
 
     user  = localStorage.getItem("token");
     console.log(user);
@@ -136,7 +136,7 @@ async function ShowBuyBlock(id, date) {
         credentials: 'same-origin',
         headers: {
             'Authorization': `Bearer ${user}`,
-            'Access-Control-Allow-Origin': 'http://3.67.182.34:8887/'
+            'Access-Control-Allow-Origin': 'http://localhost:8887/'
         },
         body: JSON.stringify({flight_uuid: id, date: date}),
     });

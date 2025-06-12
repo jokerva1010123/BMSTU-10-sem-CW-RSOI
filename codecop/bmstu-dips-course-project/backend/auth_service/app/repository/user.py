@@ -33,7 +33,7 @@ class UserRepository:
             model.password = hash_password(
                 password=model.password,
             )
-
+            
         try:
             self._db.add(model)
             self._db.commit()
